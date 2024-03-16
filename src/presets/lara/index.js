@@ -206,6 +206,8 @@ export default {
  */
 import global from './global';
 import datatable from './datatable';
+import progressspinner from './progressspinner';
+
 export default {
     global,
     directives: {
@@ -218,5 +220,8 @@ export default {
    
     //data
     datatable,
+
+     //misc
+     progressspinner,
 
 };
