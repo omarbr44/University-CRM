@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "pinia": "^2.1.7",
+    "primeicons": "^6.0.1",
     "primevue": "^3.49.1",
     "vee-validate": "^4.12.6",
     "vue": "^3.4.19",

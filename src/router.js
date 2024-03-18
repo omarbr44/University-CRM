@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
-  history: createWebHistory($GLOBAL_SHOP_DOMAIN),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/requestssection',
+      name: 'RequestsSection',
+      component: () => import('./components/Request/RequestsSection.vue'),
+    },
     /* {
       path: '/',
       name: 'home',

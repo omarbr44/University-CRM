@@ -35,6 +35,7 @@
   button:hover,input[type="submit"]{
   cursor:pointer;
   transform: translateY(-0.25em);
+  transition: transform 0.2s;
   }
   
   li,a{

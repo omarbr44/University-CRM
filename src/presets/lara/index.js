@@ -207,6 +207,14 @@ export default {
 import global from './global';
 import datatable from './datatable';
 import progressspinner from './progressspinner';
+import button from './button';
+import calendar from './calendar';
+import iconfield from './iconfield';
+import inputtext from './inputtext';
+import multiselect from './multiselect';
+import tag from './tag';
+import dropdown from './dropdown';
+import sidebar from './sidebar';
 
 export default {
     global,
@@ -217,11 +225,24 @@ export default {
     },
 
     //forms
-   
+    calendar,
+    iconfield,
+    inputtext,
+    multiselect,
+    dropdown,
+
     //data
     datatable,
 
      //misc
      progressspinner,
+     tag,
+
+     //buttons
+    button,
+
+    //overlay
+    sidebar,
+
 
 };
