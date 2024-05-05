@@ -29,6 +29,9 @@
     border:none;
     
   }
+  input:focus,textarea:focus,button:focus,input[type="submit"]:focus {
+    box-shadow:none !important;
+  }
   input:focus-visible,textarea:focus-visible,button:focus-visible,input[type="submit"]:focus-visible {
     outline: 1px solid black;
   }

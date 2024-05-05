@@ -215,6 +215,14 @@ import multiselect from './multiselect';
 import tag from './tag';
 import dropdown from './dropdown';
 import sidebar from './sidebar';
+import inplace from './inplace';
+import chip from './chip';
+import fileupload from './fileupload';
+import floatlabel from './floatlabel';
+import inlinemessage from './inlinemessage';
+import confirmpopup from './confirmpopup';
+import skeleton from './skeleton';
+import panel from './panel';
 
 export default {
     global,
@@ -230,19 +238,27 @@ export default {
     inputtext,
     multiselect,
     dropdown,
+    floatlabel,
 
     //data
     datatable,
+    confirmpopup,
 
      //misc
      progressspinner,
      tag,
-
+     inplace,
+     inlinemessage,
+     skeleton,
+     panel,
+     
      //buttons
     button,
+    chip,
 
     //overlay
     sidebar,
-
-
+    
+    //file
+    fileupload,
 };

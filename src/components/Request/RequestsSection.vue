@@ -1,17 +1,10 @@
 <template>
-    <section class="container mt-9">
+    <section class="p-8 mt-9 w-full">
         <div class="requests-section-hedear flex">
-            <!-- <button class="flex gap-1 bg-site-primary text-white p-2">
-                <span>اضافة بلاغ</span>
-                <IconPlus />
-            </button> -->
-            <Button type="button" label="اضافة بلاغ" icon="pi pi-plus" @click="load" class=" bg-site-primary text-white" />
-           <!--  <button class="flex gap-1">
-                <span>تصفية</span>
-                <IconFilter />
-            </button>
-            <BaseSearch /> -->
-            <h2 class="ml-auto text-3xl">البلاغات</h2>
+            <RouterLink to="/requestsadd">
+                <Button type="button" label="اضافة بلاغ" icon="pi pi-plus" class=" bg-site-primary text-white sm:text-sm" />
+            </RouterLink>
+            <h2 class="ml-auto text-3xl sm:text-xl text-site-text-primary">البلاغات</h2>
         </div>
         <RequestsDataTable />
     </section>
@@ -20,6 +13,17 @@
 <script setup>
 import RequestsDataTable from './RequestsDataTable.vue'
 import Button from 'primevue/button';
+import { useRoute } from 'vue-router';
+import { useNotification } from "@kyvg/vue3-notification";
+
+const { notify }  = useNotification()
+if(useRoute().query.msg) {
+    notify({
+                    title: "مرحبا",
+                    text: useRoute().query.msg,
+                    type: 'success',
+                });
+}
 
 </script>
 

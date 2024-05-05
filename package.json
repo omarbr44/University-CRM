@@ -9,9 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^3.2.1",
+    "axios": "^1.6.8",
+    "laravel-echo": "^1.16.1",
+    "object-to-formdata": "^4.5.1",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.49.1",
+    "pusher-js": "^8.4.0-rc2",
     "vee-validate": "^4.12.6",
     "vue": "^3.4.19",
     "vue-query": "^1.26.0",

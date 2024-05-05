@@ -21,6 +21,11 @@
                     <i class="pi pi-chart-bar" style="font-size: 1.3rem"></i>
                 </RouterLink>
             </div>
+            <div class="p-3">
+                <button @click="logout">
+                    <i class="pi pi-sign-out" style="font-size: 1.3rem"></i>
+                </button>
+            </div>
             <div class="p-3 mt-32">
                 <RouterLink to="/">
                     <Logo />
@@ -33,7 +38,15 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import Logo from '../Icon/Logo.vue'
+import { useUserStore } from '../../stores/user'
+import { useRouter } from 'vue-router';
 
+const user = useUserStore()
+const router = useRouter()
+const logout = ()=>{
+    user.signOut()
+    router.push('/login')
+}
 </script>
 
 <style lang="scss" scoped>
