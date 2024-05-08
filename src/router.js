@@ -24,9 +24,24 @@ const router = createRouter({
       component: () => import('./components/Request/RequestDetailes.vue'),
     },
     {
+      path: '/requesttracking/:id',
+      name: 'RequestTracking',
+      component: () => import('./components/Request/RequestTracking.vue'),
+    },
+    {
       path: '/requestsadd',
       name: 'RequestAdd',
       component: () => import('./components/Request/RequestAdd.vue'),
+    },
+    {
+      path: '/notification',
+      name: 'notification',
+      component: () => import('./components/otherSections/notificationPage.vue'),
+    },
+    {
+      path: '/notificationtracking/:id',
+      name: 'notificationtracking',
+      component: () => import('./components/Request/notificationTracking.vue'),
     },
     /* {
       path: '/',

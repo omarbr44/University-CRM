@@ -53,7 +53,7 @@
 <script setup>
 import Logo from './Icon/Logo.vue'
 import { ref } from 'vue';
-import { usePostRequest } from '../composables/useRequest'
+import { usePostRequest,useGetRequest } from '../composables/useRequest'
 import { useUserStore } from '../stores/user'
 import { useRouter } from 'vue-router';
 
@@ -71,8 +71,10 @@ const router = useRouter()
             const { Error,Data } = await usePostRequest('login',obj.value)
             requestError.value = Error.value
             isLoading.value = false
-            if(!requestError.value){
-                user.signIn(Data.value.access_token,Data.value.user.type.type,Data.value.user.name,Data.value.user.id)
+            if(!requestError.value){ 
+                user.signIn(Data.value.access_token,Data.value.user.type.type,Data.value.user.name,Data.value.user.id,Data.value.image)
+                const { Data:notification } = await useGetRequest('Notifications/unread')
+                user.userNotifications = notification.value
                 router.push({name:'RequestsSection',query:{msg:user.userName+' اهلا'}})
             }
     }

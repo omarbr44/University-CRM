@@ -30,11 +30,11 @@ import ConfirmationService from 'primevue/confirmationservice';
 import ConfirmPopup from 'primevue/confirmpopup';
 import Skeleton from 'primevue/skeleton';
 import Panel from 'primevue/panel';
+import Avatar from 'primevue/avatar';
 
 import Lara from './presets/lara';      //import preset        
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import axios from 'axios';
 
 window.Pusher = Pusher;
 /* 
@@ -82,6 +82,8 @@ app.component("InlineMessage", InlineMessage);
 app.component("Password", Password);
 app.component("Skeleton", Skeleton);
 app.component("Panel", Panel);
+app.component("Avatar", Avatar);
+
 app.use(PrimeVue, {
     unstyled: true,
     pt: Lara                            //apply preset        

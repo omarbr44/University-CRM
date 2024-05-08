@@ -98,10 +98,14 @@
                             <span class="text-sm text-site-text-primary">{{ request.priority }}</span>
                         </div class=" flex items-center gap-1">
                     </div>
+                    <RouterLink :to="'/requesttracking/'+route.params.id">
+                            <Button class="bg-site-primary gap-5 text-white mx-auto my-4 w-full" label="تحويلات البلاغ" />
+                    </RouterLink>
                 </div>
             </div>
         </div>
-        <h1 class="text-3xl my-8">التحويلات</h1>
+        
+        <!-- <h1 class="text-3xl my-8">التحويلات</h1>
         <hr>
         <template v-for="(tracking,index) in trackings" :key="index">
             <Panel toggleable class="my-4" :collapsed="true">
@@ -138,7 +142,7 @@
                     </div>
                 </p>
             </Panel>
-        </template>
+        </template> -->
     <form  @submit.prevent="submitTrack" class="request-forward m-4 p-2 sm:m-2 bg-site-light-background">
         <Skeleton v-if="pageLoading" height="20rem" style="background-color: #e2e8f0"></Skeleton>
         <div v-if="!pageLoading" class="request bg-white p-8 sm:p-4 ">

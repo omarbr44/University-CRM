@@ -223,6 +223,7 @@ import inlinemessage from './inlinemessage';
 import confirmpopup from './confirmpopup';
 import skeleton from './skeleton';
 import panel from './panel';
+import avatar from './avatar';
 
 export default {
     global,
@@ -251,6 +252,7 @@ export default {
      inlinemessage,
      skeleton,
      panel,
+     avatar,
      
      //buttons
     button,

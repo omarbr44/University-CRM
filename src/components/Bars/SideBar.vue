@@ -1,6 +1,6 @@
 <template>
     <div class="h-screen bg-site-light-background sticky top-px">
-        <div class="p-3 mt-8 flex flex-col gap-7">
+        <div class="p-3 mt-16 flex flex-col gap-7">
             <div class="p-3 bg-site-primary rounded-sm">
                 <RouterLink to="/">
                     <i class="pi pi-home pl-0.5" style="font-size: 1.3rem; color: white;"></i>
@@ -22,6 +22,9 @@
                 </RouterLink>
             </div>
             <div class="p-3">
+                <ThemeToggle />
+            </div>
+            <div class="p-3">
                 <button @click="logout">
                     <i class="pi pi-sign-out" style="font-size: 1.3rem"></i>
                 </button>
@@ -40,6 +43,7 @@ import { RouterLink } from 'vue-router';
 import Logo from '../Icon/Logo.vue'
 import { useUserStore } from '../../stores/user'
 import { useRouter } from 'vue-router';
+import ThemeToggle from '../otherSections/ThemeToggle.vue';
 
 const user = useUserStore()
 const router = useRouter()

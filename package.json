@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^3.2.1",
+    "@vueuse/core": "^10.9.0",
     "axios": "^1.6.8",
     "laravel-echo": "^1.16.1",
     "object-to-formdata": "^4.5.1",

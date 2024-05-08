@@ -67,6 +67,17 @@
                         <div >
                             <InlineMessage v-if="requestError?.user_type_id">{{requestError?.user_type_id[0]}}</InlineMessage>
                         </div>
+
+                    <div class="card w-full border-b-2 border-site-primary p-3">
+                        <FileUpload  class=" border-none" chooseLabel="اختر الملفات" cancelLabel="الغاء الملفات" :showUploadButton="false"
+                        :showCancelButton="true" name="demo" @select="onAdvancedUpload"
+                        :multiple="false" accept="image/*" :maxFileSize="1000000" :pt="{choosebutton:'text-site-primary p-3 items-center cursor-pointer inline-flex', chooseicon:'mt-1 ml-1', filesize:'inline-block', badge:'!hidden',actions:'mr-auto',buttonbar:'border-none',content:'border-none'}">
+                            <template #empty>
+                                <p>اسحب الملفات إلى هنا</p>
+                            </template>
+                        </FileUpload>
+                        <InlineMessage v-if="requestError?.image">{{ requestError?.image }}</InlineMessage>
+                    </div>
                 <Button :loading="isLoading" type="submit" label="ارسال" class=" bg-site-primary w-3/5 mx-auto" />
             </form>
         </div>
@@ -91,6 +102,7 @@ import Logo from './Icon/Logo.vue'
 import { ref,onMounted } from 'vue';
 import { usePostRequest,useGetRequest } from '../composables/useRequest'
 import { useNotification } from "@kyvg/vue3-notification";
+import { serialize } from 'object-to-formdata';
 
 const { notify }  = useNotification()
 const obj = ref({
@@ -99,6 +111,7 @@ const obj = ref({
     password:null,
     password_confirmation:null,
     phone:null,
+    image:null,
     user_type_id:null,
     })
 const userTypes = ref()
@@ -108,9 +121,16 @@ onMounted(async()=>{
     const {Data:types } = await useGetRequest('UserType')
     userTypes.value = types.value
 })
+const onAdvancedUpload = function(event){
+        obj.value.image = event.files[0]
+    }   
 const submit = async function(){
+        console.log(obj.value)
+        const formData = serialize(
+                obj.value,
+            )
         isLoading.value = true
-        const { Error } = await usePostRequest('register',obj.value)
+        const { Error } = await usePostRequest('register',formData)
         requestError.value = Error.value
         isLoading.value = false
         if(!requestError.value){
