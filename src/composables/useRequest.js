@@ -40,7 +40,7 @@ const url = geturl()
       const { data } = await axios.put(url+api,body,{
         headers:{"Authorization": "Bearer "+userStore.userToken},
       });
-      Data.value = data.data
+      Data.value = data.data || data
     } catch (error) {
         Error.value = error.response.data
     }

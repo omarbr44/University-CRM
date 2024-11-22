@@ -17,13 +17,13 @@
             <!-- 
             <template #loading> تحميل البلاغات. انتظر من فضلك. </template> -->
             <template #empty> لم يتم العثور على اي بلاغ </template>
-            <Column field="user"  header="المرسل" sortable :showFilterMatchModes="false" filterMenuClass="bg-white" style="min-width: 12rem; color: #223769;" class="text-center " headerClass="w-6" :pt="{ headerContent: 'justify-center gap-1',columnFilter: '!ml-0'}">
+            <Column field="user"  header="المرسل" sortable :showFilterMatchModes="false" filterMenuClass="bg-white" style="min-width: 12rem;" class="text-center text-site-primary dark:text-white" headerClass="w-6" :pt="{ headerContent: 'justify-center gap-1',columnFilter: '!ml-0'}">
                 <template #body="{ data }" >
                     <Skeleton v-if="loading" style="background-color: #e2e8f0"></Skeleton>
                    <span v-else> {{ data.user }} </span>
                 </template>
                 <template #filter="{ filterModel }">
-                    <InputText v-model="filterModel.value" type="text" class="p-column-filter ml-4" style="width: 10rem;"placeholder="ابحث بإسم المرسل" />
+                    <InputText v-model="filterModel.value" type="text" class="p-column-filter ml-4 dark:text-site-primary" style="width: 10rem;"placeholder="ابحث بإسم المرسل" />
                 </template>
                 <template #filterclear="{ filterCallback }">
                     <Button type="button" icon="pi pi-times" class=" w-8 h-8 font-medium" @click="filterCallback()" severity="danger"></Button>
@@ -32,13 +32,13 @@
                     <Button type="button" icon="pi pi-check" @click="filterCallback()" class=" w-8 h-8 font-medium" severity="success"></Button>
                 </template>
             </Column>
-            <Column  header="العنوان" field="title" :showFilterMatchModes="false" filterMenuClass="bg-white" style="min-width: 12rem; color: #223769;" class="text-center" :pt="{ headerContent: 'justify-center',columnFilter: '!ml-0'}">
+            <Column  header="العنوان" field="title" :showFilterMatchModes="false" filterMenuClass="bg-white" style="min-width: 12rem;" class="text-center text-site-primary dark:text-white" :pt="{ headerContent: 'justify-center',columnFilter: '!ml-0'}">
                 <template #body="{ data }">
                         <Skeleton v-if="loading" style="background-color: #e2e8f0"></Skeleton>
                         <span v-else>{{ data.title }}</span>
                 </template>
                 <template #filter="{ filterModel }">
-                    <InputText v-model="filterModel.value" type="text" class="p-column-filter ml-4" style="width: 10rem;" placeholder="ابحث بعنوان البلاغ" />
+                    <InputText v-model="filterModel.value" type="text" class="p-column-filter ml-4 dark:text-site-primary" style="width: 10rem;" placeholder="ابحث بعنوان البلاغ" />
                 </template>
                 <template #filterclear="{ filterCallback }">
                     <Button type="button" icon="pi pi-times" class=" w-8 h-8 font-medium" @click="filterCallback()" severity="danger"></Button>
@@ -47,7 +47,7 @@
                     <Button type="button" icon="pi pi-check" @click="filterCallback()" class=" w-8 h-8 font-medium" severity="success"></Button>
                 </template>
             </Column>
-            <Column header="نوع البلاغ" filterField="category" :showFilterMatchModes="false" filterMenuClass="bg-white" class="text-center" :filterMenuStyle="{ width: '14rem' }" style="min-width: 14rem; color: #223769;" :pt="{ headerContent: 'justify-center',columnFilter: '!ml-0' }">
+            <Column header="نوع البلاغ" filterField="category" :showFilterMatchModes="false" filterMenuClass="bg-white" class="text-center text-site-primary dark:text-white" :filterMenuStyle="{ width: '14rem' }" style="min-width: 14rem;" :pt="{ headerContent: 'justify-center',columnFilter: '!ml-0' }">
                 <template #body="{ data }">
                         <Skeleton v-if="loading" style="background-color: #e2e8f0"></Skeleton>
                         <span v-else>{{ data.category }}</span>
@@ -68,13 +68,13 @@
                     <Button type="button" icon="pi pi-check" @click="filterCallback()" class=" w-8 h-8 font-medium" severity="success"></Button>
                 </template>
             </Column>
-            <Column header="تاريخ البلاغ" filterField="date" :showFilterMatchModes="false" filterMenuClass="bg-white" sortable class="text-center " dataType="date" style="min-width: 10rem; color: #223769;" :pt="{ headerContent: 'justify-center gap-1',columnFilter: '!ml-0' }">
+            <Column header="تاريخ البلاغ" filterField="date" :showFilterMatchModes="false" filterMenuClass="bg-white" sortable class="text-center text-site-primary dark:text-white" dataType="date" style="min-width: 10rem;" :pt="{ headerContent: 'justify-center gap-1',columnFilter: '!ml-0' }">
                 <template #body="{ data }">
                     <Skeleton v-if="loading" style="background-color: #e2e8f0"></Skeleton>
                     <span v-else>{{ formatDate(data.date) }}</span>          
                 </template>
                 <template #filter="{ filterModel }">
-                    <Calendar panelClass="bg-white !text-site-primary" class="ml-4" inputClass="w-40" v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />
+                    <Calendar panelClass="bg-white !text-site-primary dark:!text-site-primary" class="ml-4" inputClass="w-40 dark:text-site-primary" v-model="filterModel.value" dateFormat="mm/dd/yy" placeholder="mm/dd/yyyy" mask="99/99/9999" />
                 </template>
                 <template #filterclear="{ filterCallback }">
                     <Button type="button" icon="pi pi-times" class=" w-8 h-8 font-medium" @click="filterCallback()" severity="danger"></Button>
@@ -83,13 +83,13 @@
                     <Button type="button" icon="pi pi-check" @click="filterCallback()" class=" w-8 h-8 font-medium" severity="success"></Button>
                 </template>
             </Column>
-            <Column header="الحالة" filterField="status" :showFilterMatchModes="false" filterMenuClass="bg-white" class="text-center " :filterMenuStyle="{ width: '14rem' }" style="min-width: 12rem; color: #223769;" :pt="{ headerContent: 'justify-center',columnFilter: '!ml-0' }">
+            <Column header="الحالة" filterField="status" :showFilterMatchModes="false" filterMenuClass="bg-white" class="text-center text-site-primary dark:text-white" :filterMenuStyle="{ width: '14rem' }" style="min-width: 12rem;" :pt="{ headerContent: 'justify-center',columnFilter: '!ml-0' }">
                 <template #body="{ data }">
                     <Skeleton v-if="loading" style="background-color: #e2e8f0"></Skeleton>
                     <Tag v-else :value="data.status" :severity="getSeverity(data.status)" style="width: 5rem;"/>
                 </template>
                 <template #filter="{ filterModel }">
-                    <Dropdown panelClass="bg-white " inputClass="w-6" v-model="filterModel.value"  :options="statuses" placeholder="اختر حالة" class="p-column-filter ml-4">
+                    <Dropdown panelClass="bg-white " inputClass="w-6 dark:text-site-primary" v-model="filterModel.value"  :options="statuses" placeholder="اختر حالة" class="p-column-filter ml-4">
                         <template #option="slotProps">
                             <Tag :value="slotProps.option" :severity="getSeverity(slotProps.option)"  />
                         </template>
@@ -102,14 +102,14 @@
                     <Button type="button" icon="pi pi-check" @click="filterCallback()" class=" w-8 h-8 font-medium" severity="success"></Button>
                 </template>
             </Column>
-            <Column :exportable="false" style="min-width:10rem">
+            <!-- <Column v-if="useUserStore().userPermissions.delete_request" :exportable="false" style="min-width:10rem">
                 <template #body="slotProps">
-                    <!-- <Button icon="pi pi-pencil" outlined rounded class="mr-2" @click="editProduct(slotProps.data)" /> -->
-                    <ConfirmPopup></ConfirmPopup>
+                    <Button icon="pi pi-pencil" outlined rounded class="mr-2" @click="editProduct(slotProps.data)" />
+                    <ConfirmPopup class="bg-white"></ConfirmPopup>
                     <Skeleton v-if="loading" style="background-color: #e2e8f0"></Skeleton>
                     <Button v-else icon="pi pi-trash" outlined rounded severity="danger" @click="confirmDeleteRequest($event,slotProps.data)" />
                 </template>
-            </Column>
+            </Column> -->
         </DataTable>
     </div>
 </template>
@@ -120,6 +120,7 @@ import { useRouter } from 'vue-router';
 import { FilterMatchMode } from 'primevue/api';
 import { useGetRequest,useDeleteRequest } from '../../composables/useRequest'
 import { useConfirm } from "primevue/useconfirm";
+import { useUserStore } from '../../stores/user';
 const confirm = useConfirm();
 const router = useRouter()
 const requests = ref(new Array(4));
@@ -217,4 +218,10 @@ div[data-pc-extend="paginator"]{
     color: #3D4D61;
     margin: 1rem;
 }
+span[data-pc-section="daylabel"]:is(.dark .dark\:text-white\/70),button[data-pc-section="yeartitle"]:is(.dark .dark\:text-white\/80),button[data-pc-section="monthtitle"]:is(.dark .dark\:text-white\/80) {
+    color: #223769 !important;
+}
+/* *[data-pc-group-section="pagebutton"] {
+    color: white;
+} */
 </style>

@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'loginn',
+      component: () => import('./components/LoginPage.vue'),
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('./components/LoginPage.vue'),
@@ -43,11 +48,42 @@ const router = createRouter({
       name: 'notificationtracking',
       component: () => import('./components/Request/notificationTracking.vue'),
     },
-    /* {
-      path: '/',
-      name: 'home',
-      component: () => import('./pages/feedback.vue'),
+    {
+      path: '/usertypeadd/:id',
+      name: 'usertypeadd',
+      component: () => import('./components/User/UserTypeAdd.vue'),
     },
+    {
+      path: '/usertype',
+      name: 'usertype',
+      component: () => import('./components/User/UserTypesSection.vue'),
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: () => import('./components/User/UsersSection.vue'),
+    },
+    {
+      path: '/userprofile/:id',
+      name: 'userprofile',
+      component: () => import('./components/User/UserProfile.vue'),
+    },
+    {
+      path: '/userupdate/:id',
+      name: 'userupdate',
+      component: () => import('./components/User/UserUpdate.vue'),
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('./components/Settings/SettingsSection.vue'),
+    },
+    {
+      path: '/analysis',
+      name: 'analysis',
+      component: () => import('./components/otherSections/analysisSection.vue'),
+    },
+    /* 
     {
       path: '/:pathMatch(.*)*',
       name: 'Error',

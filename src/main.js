@@ -31,6 +31,9 @@ import ConfirmPopup from 'primevue/confirmpopup';
 import Skeleton from 'primevue/skeleton';
 import Panel from 'primevue/panel';
 import Avatar from 'primevue/avatar';
+import Listbox from 'primevue/listbox';
+import TabMenu from 'primevue/tabmenu';
+import Chart from 'primevue/chart';
 
 import Lara from './presets/lara';      //import preset        
 import Echo from 'laravel-echo';
@@ -83,6 +86,10 @@ app.component("Password", Password);
 app.component("Skeleton", Skeleton);
 app.component("Panel", Panel);
 app.component("Avatar", Avatar);
+app.component("Listbox", Listbox);
+app.component("TabMenu", TabMenu);
+app.component("Chart", Chart);
+
 
 app.use(PrimeVue, {
     unstyled: true,
@@ -90,6 +97,7 @@ app.use(PrimeVue, {
 });
 
 import { useUserStore } from './stores/user'
+
 
 window.Echo = new Echo({
      broadcaster: 'pusher',
@@ -108,3 +116,6 @@ window.Echo = new Echo({
     }
   })
 app.mount('#app')
+/* import Colleags from './components/Settings/Colleags.vue';
+
+app.component("Colleags", Colleags); */

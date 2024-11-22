@@ -4,7 +4,7 @@
         <hr>
         <Skeleton v-if="pageLoading" height="4rem" class="my-8" style="background-color: #e2e8f0"></Skeleton>
         <template v-else>
-            <Panel  toggleable class="my-8" :collapsed="true" >
+            <Panel  class="my-8" >
                     <template #header>
                         <div class="flex align-items-center gap-2"> 
                             <span class="font-bold">من</span>
@@ -22,9 +22,10 @@
                         <span class=" text-site-text-secondary sm:text-base">الموضوع:</span>
                         <span class=" text-site-text-primary sm:text-base">{{ tracking.subject }}</span>
                         </h2>
-                        <textarea disabled  cols="30" rows="10" class=" text-site-text-secondary bg-white mt-5">
+                        <textarea disabled  cols="100" rows="10" class=" text-site-text-secondary bg-white mt-5">
                                 {{ tracking.details }}
                         </textarea>
+                        
                         <div  class="files-section flex gap-3">
                             <Inplace v-for="(file,index) in tracking.file_paths" :key="index" :pt="{ display: 'bg-site-primary  w-fit text-white p-2 flex gap-2 items-center rounded-sm'}">
                                 <template #display>
@@ -52,15 +53,19 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useGetRequest } from '../../composables/useRequest'
+import { useUserStore } from '../../stores/user'
 
+const userStore = useUserStore()
 const route = useRoute()
 const tracking = ref()
 const pageLoading = ref(true);
 
 onMounted(async() => {
-    const {Data:trackingss } = await  useGetRequest('Tracking/'+route.params.id)
-    tracking.value = trackingss.value
-    console.log(trackingss.value)
+    const {Data:trackingss } = await  useGetRequest('Tracking/'+route.params.id+'?notify_id='+route.params.id)
+    const { Data:notification } = await useGetRequest('Notifications/unread')
+    userStore.userNotifications = notification.value
+/*     userStore.userNotifications.Unread_Notifications = userStore.userNotifications.Unread_Notifications.filter((el)=> el.id != route.params.id)
+ */    tracking.value = trackingss.value
     pageLoading.value = false;
 });
 </script>

@@ -8,7 +8,7 @@
                     <span class=" text-site-text-primary sm:text-base">{{ request.title }}</span>
                 </h2>
                 <div v-if="!pageLoading" class="sm:hidden">
-                    <Button icon="pi pi-print" style="color: #2D2D2D;" class="text-2xl" />
+                    <!-- <Button icon="pi pi-print" style="color: #2D2D2D;" class="text-2xl" /> -->
                     <RouterLink to="/requestssection">
                         <Button icon="pi pi-arrow-left" style="color: #2D2D2D;" class="text-2xl" />
                     </RouterLink>
@@ -29,7 +29,7 @@
                     </div>
                     <Skeleton v-if="pageLoading" height="20rem" width="100%" class="my-4"style="background-color: #e2e8f0"></Skeleton>
                     <div v-else class="message">
-                        <textarea disabled  cols="30" rows="10" class=" text-site-text-secondary bg-white">
+                        <textarea disabled  cols="100" rows="10" class=" text-site-text-secondary bg-white">
                             {{ request.description }}
                         </textarea>
 
@@ -39,51 +39,54 @@
                         <Inplace v-for="(file,index) in request.filePaths" :key="index" :pt="{ display: 'bg-site-primary  w-fit text-white p-2 flex gap-2 items-center rounded-sm'}">
                             <template #display>
                                 <span class="pi pi-image" style="vertical-align: middle; font-size: 1.3rem;"></span>
-                                <span style="margin-left: 0.5rem; vertical-align: middle"> صورة</span>
+                                <span style="margin-left: 0.5rem; vertical-align: middle"> ملف</span>
                             </template>
                             <template #content>
-                                <img class="w-full" alt="Nature" :src="'http://127.0.0.1:8000/'+file.path" />
+                                <a :href="'http://127.0.0.1:8000/'+file.path">تحميل الملف</a>
+                                <!-- <img class="w-full" alt="Nature" :src="'http://127.0.0.1:8000/'+file.path" /> -->
                             </template>
                         </Inplace>
                     </div>
+                <template v-if="useUserStore().userPermissions.update_request" >
                     <Skeleton v-if="pageLoading" class="mt-4"height="2rem" width="15rem" style="background-color: #e2e8f0"></Skeleton>
                     <div v-else class="forward w-full border-t-2 border-dashed border-site-dark-background mt-5 py-5">
-                        <Dropdown optionLabel="name" panelClass="bg-white " inputClass="w-6" v-model="priority"  :options="priorities" placeholder="اختر الاهمية" class="p-column-filter ml-4">
+                        <!-- <Dropdown optionLabel="name" panelClass="bg-white " inputClass="w-6" v-model="priority"  :options="priorities" placeholder="اختر الاهمية" class="p-column-filter ml-4">
                             <template #option="slotProps">
                                 <Tag :value="slotProps.option.name" :severity="getSeverity(slotProps.option.name)"  />
                             </template>
-                        </Dropdown>
+                        </Dropdown> -->
                         <Dropdown optionLabel="status" panelClass="bg-white " inputClass="w-6" v-model="status"  :options="statuses" placeholder="اختر حالة" class="p-column-filter ml-4">
                             <template #option="slotProps">
                                 <Tag :value="slotProps.option.status" :severity="getSeverity(slotProps.option.status)"  />
                             </template>
                         </Dropdown>
-                        <Button :loading="buttonLoading" v-show="priority && status" @click="updateRequest" type="button" label="اعادة توجيه" icon="pi pi-arrow-right" class="gap-2 bg-site-light-background !text-site-text-primary" />
+                        <Button :loading="buttonLoading" v-show="status" @click="updateRequest" type="button" label="اعادة توجيه" icon="pi pi-arrow-right" class="gap-2 bg-site-light-background !text-site-text-primary" />
                     </div>
+                </template>
                 </div>
                 <div class="request-body-left  bg-white p-4 lg:w-2/12 flex flex-col gap-2">
                     <Skeleton v-if="pageLoading" height="4rem" style="background-color: #e2e8f0"></Skeleton>
-                    <div v-else class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
+                    <div v-else-if="request.building" class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
                         <h2 class="text-xl text-site-text-secondary">المبنى</h2>
                         <h2 class="text-sm text-site-text-primary">{{request.building}}</h2>
                     </div>
                     <Skeleton v-if="pageLoading" height="4rem" style="background-color: #e2e8f0"></Skeleton>
-                    <div v-else class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
+                    <div v-else-if="request.room_type" class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
                         <h2 class="text-xl text-site-text-secondary">نوع الغرفة</h2>
                         <h2 class="text-sm text-site-text-primary">{{ request.room_type }}</h2>
                     </div>
                     <Skeleton v-if="pageLoading" height="4rem" style="background-color: #e2e8f0"></Skeleton>
-                    <div v-else class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
+                    <div v-else-if="request.room" class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
                         <h2 class="text-xl text-site-text-secondary">الغرفة</h2>
                         <h2 class="text-sm text-site-text-primary">{{request.room}}</h2>
                     </div>
                     <Skeleton v-if="pageLoading" height="4rem" style="background-color: #e2e8f0"></Skeleton>
-                    <div v-else class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
+                    <div v-else-if="request.category" class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
                         <h2 class="text-xl text-site-text-secondary">نوع البلاغ</h2>
                         <h2 class="text-sm text-site-text-primary">{{ request.category }}</h2>
                     </div>
                     <Skeleton v-if="pageLoading" height="4rem" style="background-color: #e2e8f0"></Skeleton>
-                    <div v-else class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
+                    <div v-else-if="request.status" class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
                         <h2 class="text-xl text-site-text-secondary">حالة الطلب</h2>
                         <div class=" flex items-center gap-1">
                             <div class=" w-3 h-3 rounded-full bg-red-800"></div>
@@ -91,14 +94,14 @@
                         </div class=" flex items-center gap-1">
                     </div>
                     <Skeleton v-if="pageLoading" height="4rem" style="background-color: #e2e8f0"></Skeleton>
-                    <div v-else class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
+                    <div v-else-if="request.priority" class="detail-container bg-site-light-background p-3 rounded-sm border-site-dark-background border">
                         <h2 class="text-xl text-site-text-secondary">اولوية الطلب</h2>
                         <div class=" flex items-center gap-1">
                             <div class=" w-3 h-3 rounded-full bg-red-800"></div>
                             <span class="text-sm text-site-text-primary">{{ request.priority }}</span>
                         </div class=" flex items-center gap-1">
                     </div>
-                    <RouterLink :to="'/requesttracking/'+route.params.id">
+                    <RouterLink :to="'/requesttracking/'+route.params.id" v-if="useUserStore().userPermissions.show_tracking">
                             <Button class="bg-site-primary gap-5 text-white mx-auto my-4 w-full" label="تحويلات البلاغ" />
                     </RouterLink>
                 </div>
@@ -143,7 +146,7 @@
                 </p>
             </Panel>
         </template> -->
-    <form  @submit.prevent="submitTrack" class="request-forward m-4 p-2 sm:m-2 bg-site-light-background">
+    <form  @submit.prevent="submitTrack" class="request-forward m-4 p-2 sm:m-2 bg-site-light-background" v-if="useUserStore().userPermissions.create_tracking">
         <Skeleton v-if="pageLoading" height="20rem" style="background-color: #e2e8f0"></Skeleton>
         <div v-if="!pageLoading" class="request bg-white p-8 sm:p-4 ">
             <div class="request-header flex flex-col lg:flex-row items-center justify-between gap-5">
@@ -183,7 +186,7 @@
                 <div class="card w-full">
                     <FileUpload chooseLabel="اختر الملفات" cancelLabel="الغاء الملفات" :showUploadButton="false"
                      :showCancelButton="true" name="demo[]" @select="onAdvancedUpload"
-                      :multiple="true" accept="image/*" :maxFileSize="1000000" :pt="{choosebutton:'text-site-primary p-3 items-center cursor-pointer inline-flex', chooseicon:'mt-1 ml-1', filesize:'inline-block', badge:'!hidden',actions:'mr-auto',buttonbar:'border-none',content:'border-none'}">
+                      :multiple="true" :maxFileSize="1000000" :pt="{choosebutton:'text-site-primary p-3 items-center cursor-pointer inline-flex', chooseicon:'mt-1 ml-1', filesize:'inline-block', badge:'!hidden',actions:'mr-auto',buttonbar:'border-none',content:'border-none'}">
                         <template #empty>
                             <p>اسحب الملفات إلى هنا</p>
                         </template>
@@ -262,7 +265,7 @@ const getSeverity = (status) => {
 }
 const updateRequest = async () => {
     buttonLoading.value = true
-    const { Data } = await usePutRequest('Request/'+route.params.id,{priority_id:priority.value.id,status_id:status.value.id})
+    const { Data } = await usePutRequest('Request/'+route.params.id,{status_id:status.value.id})
     if(Data.value){
                 notify({
                     title: "تعديل البلاغ",
@@ -278,6 +281,7 @@ const onAdvancedUpload = (event) => {
 const submitTrack = async () => {
     trackButtonLoading.value = true
     track.value.request_id = request.value.id
+    track.value.Tracking_id = trackings.value.length > 0 ? trackings.value[trackings.value.length-1].id : null
     const formData = serialize(
                 track.value,
             )

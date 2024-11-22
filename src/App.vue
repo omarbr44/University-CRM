@@ -7,9 +7,10 @@ import { onMounted } from 'vue';
 import { useUserStore } from './stores/user'
 import { useNotification } from "@kyvg/vue3-notification";
 
+const userStore = useUserStore()
 const { notify }  = useNotification()
 onMounted( async()=>{
-  var channel = window.Echo.private('App.Models.User.'+useUserStore().userid)
+  var channel = window.Echo.private('App.Models.User.'+userStore.userid)
         channel.notification(function(data) {
           notify({
                     title: " تحويل بلاغ بعنوان "+data.subject,
@@ -22,24 +23,24 @@ onMounted( async()=>{
 
 <template>
   <notifications  />
-  <NavBar class="hidden sm:block" v-if="useRoute().path != '/login' && useRoute().path != '/signup'"/>
-  <p class="dark:bg-slate-800 bg-white">asiisf;iuhfuf</p>
+  <NavBar class="hidden sm:block" v-if="useRoute().path != '/login' && useRoute().path != '/signup' && useRoute().path != '/'"/>
   <div class="flex ">
     <div class="w-full" >
-      <nav v-if="useRoute().path != '/login' && useRoute().path != '/signup'"
-       class=" w-full h-16 px-4 flex items-center justify-between bg-site-light-background sticky top-px z-10">
+      <nav v-if="useRoute().path != '/login' && useRoute().path != '/signup' && useRoute().path != '/'"
+       class="sm:hidden w-full h-16 px-4 flex items-center justify-between bg-site-light-background dark:bg-site-background-dark-2 sticky top-0 z-10">
         <div class="ml-6 flex gap-3">
-          <div class="p-2 bg-site-dark-background rounded-sm ">
-                <RouterLink to="/">
-                    <i class="pi pi-user" style="font-size: 1.2rem"></i>
+          <div class=" bg-site-dark-background rounded-full w-10 h-10 overflow-hidden flex items-center justify-center">
+                <RouterLink :to="'/userprofile/'+userStore.userid">
+                   <Avatar v-if="userStore.userImg" :image="'http://127.0.0.1:8000/'+userStore.userImg" class="mr-2" size="large" shape="circle" />
+                   <Avatar v-else icon="pi pi-user" class=" bg-site-dark-background" size="small" shape="circle" />
                 </RouterLink>
           </div>
           <div class="p-2 bg-site-dark-background rounded-sm relative">
                 <RouterLink to="/notification">
-                    <i class="pi pi-bell" style="font-size: 1.2rem"></i>
+                    <i class="pi pi-bell text-site-primary" style="font-size: 1.2rem"></i>
                 </RouterLink>
-                <div class=" absolute w-3 h-3 rounded-full bg-red-600 bottom-2 left-5"
-                     :class="{'bg-red-600' : useUserStore().userNotifications.Unread_Notifications.length}"></div>
+                <div class=" absolute w-3 h-3 rounded-full bottom-2 left-5"
+                     :class="{'bg-red-600' : userStore.userNotifications?.Unread_Notifications.length}"></div>
           </div>
         </div>
         <div class="flex gap-3 items-center">
@@ -47,7 +48,7 @@ onMounted( async()=>{
                 <Button type="button" label="اضافة بلاغ" icon="pi pi-plus" class=" text-gray-800 text-md" />
           </RouterLink> -->
           <div class="logo w-8">
-            <RouterLink to="/">
+            <RouterLink to="/requestssection">
                       <Logo />
             </RouterLink>
           </div>
@@ -55,13 +56,13 @@ onMounted( async()=>{
       </nav>
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
-          <component :is="Component" />
+          <component :is="Component" class="dark:bg-site-background-dark min-h-screen"/>
         </transition>
       </router-view>
 
     </div>
 
-    <SideBar class="sm:hidden" v-if="useRoute().path != '/login' && useRoute().path != '/signup'"/>
+    <SideBar class="sm:hidden dark:bg-site-background-dark-2" v-if="useRoute().path != '/login' && useRoute().path != '/signup' && useRoute().path != '/'"/>
   </div>
 </template>
 

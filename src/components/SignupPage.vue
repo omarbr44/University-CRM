@@ -5,15 +5,15 @@
                 <Logo width="78" />
         </div>
         <div class="header mt-20 text-center">
-            <h2 class=" text-3xl sm:text-xl text-site-primary">مرحبا بك</h2>
-            <p class=" text-xl text-site-text-secondary">الرجاء ادخال التفاصيل الخاصة بك</p>
+            <h2 class=" text-3xl sm:text-xl text-site-primary">مرحبا</h2>
+            <p class=" text-xl text-site-text-secondary">الرجاء ادخال التفاصيل الخاصة بالحساب</p>
         </div>
         <div class="form-section mt-8" style="direction: rtl;" >
             <form @submit.prevent="submit" class=" flex flex-col gap-10">
                         <div class="border-b-2 border-site-primary ">
                             <FloatLabel>
                                     <InputText class=" border-none focus:ring-0 w-full" id="name" v-model="obj.name" />
-                                    <label for="name" class=" text-site-primary" >الاسم الرباعي</label>
+                                    <label for="name" class=" text-site-primary" >الاسم الكامل</label>
                                 </FloatLabel>
                         </div>
                         <div >
@@ -41,8 +41,8 @@
                         </div>
                         <div class="border-b-2 border-site-primary ">
                             <FloatLabel>
-                                    <Password class=" " v-model="obj.password_confirmation" inputId="password_confirmation"
-                                    inputClass=" border-none focus:ring-0 w-full" />
+                                    <Password class=" " v-model="obj.password_confirmation" inputId="password_confirmation" promptLabel="ادخل تأكيد كلمة المرور"
+                                    inputClass=" border-none focus:ring-0 w-full" weakLabel=" " mediumLabel=" " strongLabel=" " />
                                     <label for="password_confirmation" class=" text-site-primary" :class="{'float-label': obj.password_confirmation }">تأكيد كلمة المرور</label>
                                 </FloatLabel>
                         </div>
@@ -69,7 +69,7 @@
                         </div>
 
                     <div class="card w-full border-b-2 border-site-primary p-3">
-                        <FileUpload  class=" border-none" chooseLabel="اختر الملفات" cancelLabel="الغاء الملفات" :showUploadButton="false"
+                        <FileUpload  class=" border-none" chooseLabel="اختر الصورة" cancelLabel="الغاء الصورة" :showUploadButton="false"
                         :showCancelButton="true" name="demo" @select="onAdvancedUpload"
                         :multiple="false" accept="image/*" :maxFileSize="1000000" :pt="{choosebutton:'text-site-primary p-3 items-center cursor-pointer inline-flex', chooseicon:'mt-1 ml-1', filesize:'inline-block', badge:'!hidden',actions:'mr-auto',buttonbar:'border-none',content:'border-none'}">
                             <template #empty>
@@ -78,15 +78,15 @@
                         </FileUpload>
                         <InlineMessage v-if="requestError?.image">{{ requestError?.image }}</InlineMessage>
                     </div>
-                <Button :loading="isLoading" type="submit" label="ارسال" class=" bg-site-primary w-3/5 mx-auto" />
+                <Button :loading="isLoading" type="submit" label="انشاء الحساب" class=" bg-site-primary w-3/5 mx-auto" />
             </form>
         </div>
     </div>
-    <div class="right-section md:hidden sm:hidden w-3/5 bg-site-primary rounded-md flex justify-end flex-col  h-screen"
-     style="background-image: linear-gradient(to bottom, #436FCE, #315197, #223868);">
+    <div class="right-section md:hidden sm:hidden w-3/5 bg-site-primary rounded-md flex justify-end flex-col h-screen fixed"
+     style="background-image: linear-gradient(to bottom, #436FCE, #315197, #223868);left: 37rem;">
         <img src="../assets/imgs/loginImg.jpg" class=" h-4/5" style="
         position: absolute;
-        left: 48rem;
+        left: 14rem;
         top: -27rem;
         height: 53rem;">
         <h2 class=" text-xl text-white text-center my-3" style="
@@ -103,7 +103,8 @@ import { ref,onMounted } from 'vue';
 import { usePostRequest,useGetRequest } from '../composables/useRequest'
 import { useNotification } from "@kyvg/vue3-notification";
 import { serialize } from 'object-to-formdata';
-
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const { notify }  = useNotification()
 const obj = ref({
     username:null,
@@ -139,6 +140,7 @@ const submit = async function(){
                 text: "تم انشاء الحساب بنجاح",
                 type: 'success',
             });
+            router.push('/users')
         } 
 }
 </script>

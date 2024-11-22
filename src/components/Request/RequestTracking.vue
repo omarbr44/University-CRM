@@ -1,12 +1,15 @@
 <template>
     <div class="w-full p-8 sm:p-4" style="direction: rtl;">
-        <h1 class="text-3xl my-8">التحويلات</h1>
+        <div class="flex justify-between">
+            <h1 class="text-3xl my-8">التحويلات</h1>
+            <Button @click="router.go(-1)" icon="pi pi-arrow-left" style="color: #2D2D2D;" class="text-2xl" />
+        </div>
         <hr>
         <Skeleton v-if="pageLoading" height="4rem" class="my-4" style="background-color: #e2e8f0"></Skeleton>
         <Skeleton v-if="pageLoading" height="4rem" class="my-4" style="background-color: #e2e8f0"></Skeleton>
         <Skeleton v-if="pageLoading" height="4rem" class="my-4" style="background-color: #e2e8f0"></Skeleton>
         <template v-else v-for="(tracking,index) in trackings" :key="index">
-            <Panel toggleable class="my-4" :collapsed="true">
+            <Panel toggleable class="my-4" :collapsed="index != 0">
                 <template #header>
                     <div class="flex align-items-center gap-2"> 
                         <span class="font-bold">من</span>
@@ -24,17 +27,17 @@
                     <span class=" text-site-text-secondary sm:text-base">الموضوع:</span>
                     <span class=" text-site-text-primary sm:text-base">{{ tracking.subject }}</span>
                     </h2>
-                    <textarea disabled  cols="30" rows="10" class=" text-site-text-secondary bg-white mt-5">
+                    <textarea disabled  cols="100" rows="10" class=" text-site-text-secondary bg-white mt-5">
                             {{ tracking.details }}
                     </textarea>
                     <div  class="files-section flex gap-3">
                         <Inplace v-for="(file,index) in tracking.file_paths" :key="index" :pt="{ display: 'bg-site-primary  w-fit text-white p-2 flex gap-2 items-center rounded-sm'}">
                             <template #display>
                                 <span class="pi pi-image" style="vertical-align: middle; font-size: 1.3rem;"></span>
-                                <span style="margin-left: 0.5rem; vertical-align: middle"> صورة</span>
+                                <span style="margin-left: 0.5rem; vertical-align: middle">ملف</span>
                             </template>
                             <template #content>
-                                <img class="w-full" alt="Nature" :src="'http://127.0.0.1:8000/'+file.path" />
+                                <a :href="'http://127.0.0.1:8000/'+file.path">تحميل الملف</a>
                             </template>
                         </Inplace>
                     </div>
@@ -46,10 +49,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 import { useGetRequest } from '../../composables/useRequest'
 
 const route = useRoute()
+const router = useRouter()
 const trackings = ref()
 const pageLoading = ref(true);
 

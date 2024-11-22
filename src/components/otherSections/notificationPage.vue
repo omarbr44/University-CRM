@@ -2,8 +2,8 @@
     <div class="p-8">
         <div class="header flex">
             <div class="filters">
-                <Calendar v-model="notificationDate" showIcon iconDisplay="input" panelClass="bg-white !text-site-primary" />
-            </div>
+<!--                 <Calendar v-model="notificationDate" showIcon iconDisplay="input" panelClass="bg-white !text-site-primary" />
+ -->            </div>
             <h2 class="ml-auto text-3xl sm:text-xl text-site-text-primary">الإشعارات</h2>
         </div>
         <div class="notifications-wrapper my-8" style="direction: rtl;">
@@ -21,7 +21,7 @@
     
                     </div>
                     <div class="left-section text-site-text-secondary" style="direction: ltr;">
-                        <span>{{ noti.created_at }}</span>
+                        <span>{{ noti.data.date }}</span>
                     </div>
                 </div>
             </RouterLink>

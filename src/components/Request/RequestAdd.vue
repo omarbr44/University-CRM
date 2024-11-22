@@ -111,10 +111,17 @@
                     </div>
                     </div>
                 </div>
+                <div class="border-b-2 border-site-primary w-1/2 pb-3 ">
+                            <FloatLabel>
+                                <Dropdown panelClass="bg-white" inputId="priority_id" v-model="obj.priority_id" :options="priorities" optionLabel="name" optionValue="id"  class=" border-none w-full focus:ring-0 ring-transparent outline-0"/>
+                                <label for="priority_id" class=" text-site-primary" :class="{'float-label': obj.priority_id }">الاهمية </label>
+                            </FloatLabel>
+                </div> 
+                <InlineMessage v-if="requestError?.priority_id">{{requestError?.priority_id[0]}}</InlineMessage>
                     <div class="card w-full border-b-2 border-site-primary p-3">
                     <FileUpload  class=" border-none" chooseLabel="اختر الملفات" cancelLabel="الغاء الملفات" :showUploadButton="false"
                      :showCancelButton="true" name="demo[]" @select="onAdvancedUpload"
-                      :multiple="true" accept="image/*" :maxFileSize="1000000" :pt="{choosebutton:'text-site-primary p-3 items-center cursor-pointer inline-flex', chooseicon:'mt-1 ml-1', filesize:'inline-block', badge:'!hidden',actions:'mr-auto',buttonbar:'border-none',content:'border-none'}">
+                      :multiple="true" :maxFileSize="1000000" :pt="{choosebutton:'text-site-primary p-3 items-center cursor-pointer inline-flex', chooseicon:'mt-1 ml-1', filesize:'inline-block', badge:'!hidden',actions:'mr-auto',buttonbar:'border-none',content:'border-none'}">
                         <template #empty>
                             <p>اسحب الملفات إلى هنا</p>
                         </template>
@@ -134,7 +141,9 @@ import { onMounted, ref,watch } from 'vue';
 import { serialize } from 'object-to-formdata';
 import { useGetRequest,usePostRequest } from '../../composables/useRequest'
 import { useNotification } from "@kyvg/vue3-notification";
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const { notify }  = useNotification()
     const obj = ref({
         category_id:null,
@@ -144,6 +153,7 @@ const { notify }  = useNotification()
         building_id:null,
         roomType_id:null,
         room_id:null,
+        priority_id:null,
         file_path:null,
         })
     const requestError = ref(null)
@@ -151,13 +161,16 @@ const { notify }  = useNotification()
     const colleges = ref(null)
     const RoomTypes = ref(null)
     const Categories = ref(null)
+    const priorities = ref(null)
     onMounted(async()=>{
         const {Data:collegess } = await useGetRequest('College')
         const {Data:RoomTypess } = await useGetRequest('RoomType')
         const {Data:Categoriess } = await  useGetRequest('Category')
+        const {Data:prioritiess } = await  useGetRequest('Priority')
         colleges.value = collegess.value
         RoomTypes.value = RoomTypess.value
         Categories.value = Categoriess.value
+        priorities.value = prioritiess.value
     })
     const onAdvancedUpload = function(event){
         obj.value.file_path = event.files
@@ -176,6 +189,7 @@ const { notify }  = useNotification()
                     text: "تم ارسال بلاغك بنجاح",
                     type: 'success',
                 });
+                setTimeout(router.push('requestssection'),3000)
             }
     }
     // Dependenat values

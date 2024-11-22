@@ -11,6 +11,8 @@ export default {
         "site-shape": "#3D4D61",
         "site-light-background": "#F4F5F7",
         "site-dark-background": "#DCDEE2",
+        "site-background-dark": "#0f172a",
+        "site-background-dark-2": "#1e293b",
       }
     },
     container: {

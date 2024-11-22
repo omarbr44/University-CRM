@@ -224,6 +224,8 @@ import confirmpopup from './confirmpopup';
 import skeleton from './skeleton';
 import panel from './panel';
 import avatar from './avatar';
+import listbox from './listbox';
+import tabmenu from './tabmenu';
 
 export default {
     global,
@@ -244,6 +246,7 @@ export default {
     //data
     datatable,
     confirmpopup,
+    tabmenu,
 
      //misc
      progressspinner,
@@ -253,7 +256,7 @@ export default {
      skeleton,
      panel,
      avatar,
-     
+     listbox,
      //buttons
     button,
     chip,
